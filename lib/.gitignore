@@ -21,4 +21,3 @@ pyvenv.cfg
 .DS_Store
 Thumbs.db
 
-app/routers/issue_book.py
