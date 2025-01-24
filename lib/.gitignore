@@ -1,0 +1,24 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+Lib/
+Include/
+Scripts/
+pyvenv.cfg
+
+# IDE specific files (optional, depending on your editor)
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+app/routers/issue_book.py
