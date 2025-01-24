@@ -11,6 +11,15 @@ def get_book(id:int,db:Session=Depends(database.get_db)):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail=f"Book with id {id} does not exist")
     return book 
 
+@router.get("/title/{title}",response_model=schemas.Book)
+def get_book_by_title(title:str, db: Session = Depends(database.get_db)):
+    title_names=db.query(models.Book).filter(models.Book.title==title).first()    
+    
+    if not title_names:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail=f"Book with title {title} does not exist")
+    return title_names 
+
+
 @router.get("/authors/{author}",response_model=list[schemas.Book])
 def get_book_by_author(author:str, db: Session = Depends(database.get_db)):
     author_names=db.query(models.Book).filter(models.Book.author==author).all()
@@ -29,10 +38,3 @@ def get_book_by_category(category:str, db: Session = Depends(database.get_db)):
     return books
 
 
-@router.get("/title/{title}",response_model=schemas.Book)
-def get_book_by_title(title:str, db: Session = Depends(database.get_db)):
-    title_names=db.query(models.Book).filter(models.Book.title==title).first()    
-    
-    if not title_names:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail=f"Book with title {title} does not exist")
-    return title_names 

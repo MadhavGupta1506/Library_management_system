@@ -31,3 +31,12 @@ class IssueBook(UserDetails):
     issue_date:date=None
     return_date:date=None
     
+    
+class CreateUser(BaseModel):
+    user_name:str
+    mobile:int
+    email: EmailStr
+    password:str
+    class Config:
+        from_attributes=True
+        

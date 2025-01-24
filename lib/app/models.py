@@ -1,5 +1,5 @@
 from .database import Base
-from sqlalchemy import Column, Integer, String, Boolean, TIMESTAMP
+from sqlalchemy import Column, Integer, String, Boolean, TIMESTAMP,CheckConstraint
 from sqlalchemy.sql import text
 
 class Book(Base):
@@ -21,4 +21,14 @@ class IssueBook(Base):
     mobile=Column(Integer,nullable=False)
     issue_date=Column(TIMESTAMP,nullable=False)
     return_date=Column(TIMESTAMP,nullable=False)
+    
+    
+class Users(Base):
+    __tablename__="user_login"
+    uid=Column(Integer,primary_key=True,nullable=False,autoincrement=True)
+    user_name=Column(String,nullable=False)
+    email=Column(String,nullable=False,unique=True)
+    mobile=Column(Integer,nullable=False)
+    password=Column(String,nullable=False)
+    
     
