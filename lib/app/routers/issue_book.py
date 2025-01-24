@@ -19,10 +19,7 @@ def issue_book(user_details:schemas.UserDetails,db:Session=Depends(database.get_
     
     available.status="issued"
     
-    
-    
     issue=models.IssueBook(
-        
     book_id=user_details.book_id,
     issue_date=date.today(),
     return_date=utils.get_return_date(date.today),
@@ -30,13 +27,11 @@ def issue_book(user_details:schemas.UserDetails,db:Session=Depends(database.get_
     user_name=user_details.user_name,
     email=user_details.email,
     mobile=user_details.mobile
-    
     )
+    
     db.add(issue)
     db.add(available)
     db.commit()
     db.refresh(available)
-    
-    
     
     return available

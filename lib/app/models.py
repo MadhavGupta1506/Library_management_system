@@ -4,11 +4,11 @@ from sqlalchemy.sql import text
 
 class Book(Base):
     __tablename__="books"
-    book_id=Column(Integer,primary_key=True,nullable=False)
+    book_id=Column(Integer,primary_key=True,nullable=False,autoincrement=True)
     title=Column(String,nullable=False)
     author=Column(String,nullable=False)
     category=Column(String,nullable=False)
-    status=Column(String,nullable=False)
+    status=Column(String,nullable=False,server_default='available')
 
 
 

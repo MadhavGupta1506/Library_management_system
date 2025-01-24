@@ -1,6 +1,16 @@
 from pydantic import BaseModel
 from datetime import date
 from pydantic import EmailStr
+
+class BaseBook(BaseModel):
+    title:str
+    author:str
+    category:str
+
+class UpdateBook(BaseBook):
+    book_id:int
+
+
 class Book(BaseModel):
     book_id:int
     title:str

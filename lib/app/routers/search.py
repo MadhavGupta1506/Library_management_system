@@ -2,7 +2,7 @@ from fastapi import FastAPI,HTTPException,Depends,APIRouter,status
 from sqlalchemy.orm import Session
 from .. import schemas,models,database
 
-router=APIRouter(prefix="/book",tags=["Search"])
+router=APIRouter(prefix="/book/search",tags=["Search"])
 
 @router.get("/id/{id}",response_model=schemas.Book)
 def get_book(id:int,db:Session=Depends(database.get_db)):
