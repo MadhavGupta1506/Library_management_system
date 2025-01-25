@@ -4,14 +4,14 @@ from sqlalchemy import and_
 from .. import schemas,models,database,utils
 from datetime import date
 
-router=APIRouter(prefix="/book/issuebook",tags=["Issue Book"])
+router=APIRouter(prefix="/book/issuebook",tags=["Issue/Return Book"])
 
 
 @router.get("/")
 def issue():
     return {"message": "Issue book"}
 
-@router.post("/{book_id}")
+@router.post("/issue_book")
 def issue_book(user_details:schemas.UserDetails,db:Session=Depends(database.get_db)):
     available=db.query(models.Book).filter(and_(models.Book.book_id==user_details.book_id, models.Book.status=="available")).first()
     if(not available):
@@ -35,3 +35,24 @@ def issue_book(user_details:schemas.UserDetails,db:Session=Depends(database.get_
     db.refresh(available)
     
     return available
+
+
+
+@router.post("/return_book/{book_id}")
+def issue_book(book_id:int,db:Session=Depends(database.get_db)):
+    issued=db.query(models.IssueBook).filter(models.IssueBook.book_id==book_id).first()
+    
+    if not issued:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail=f"Book is not issued yet!")
+    db.delete(issued)
+    db.commit()
+    book_status=db.query(models.Book).filter(models.Book.book_id==book_id).first()
+    if not book_status:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Book with id {book_id} not found!")
+    print(book_status)
+    book_status.status="available"
+    db.commit()
+    
+    db.refresh(book_status)
+    return book_status
+    

@@ -40,3 +40,12 @@ class CreateUser(BaseModel):
     class Config:
         from_attributes=True
         
+class UserOut(BaseModel):
+    user_name:str
+    mobile:int
+    email: EmailStr
+    
+    
+class LoginUser(BaseModel):
+    email: EmailStr
+    password:str
