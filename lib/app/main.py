@@ -1,6 +1,6 @@
-from fastapi import FastAPI, Depends, HTTPException
-from . import models,schemas
-from .database import engine,get_db
+from fastapi import FastAPI
+from . import models
+from .database import engine
 from .routers import search,issue_book,books_crud,users,login
 
 models.Base.metadata.create_all(bind=engine)
