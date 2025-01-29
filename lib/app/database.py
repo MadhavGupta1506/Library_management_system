@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 
 # SQLALCHEMY_DATABASE_URL defines the connection string for the PostgreSQL database.
 # Format: "postgresql://<username>:<password>@<ip-address/hostname>/<database_name>"
-SQLALCHEMY_DATABASE_URL = "postgresql://postgres:eOakaMSonlyVXiXeyeijEgbEzyXiPJeZ@junction.proxy.rlwy.net:21822/railway"
+SQLALCHEMY_DATABASE_URL = "postgresql://library_management_system_ip2w_user:CiyiaJdAtTgOJt2WNzf7giClCnhMzl0T@dpg-cud4rit2ng1s73bcrh60-a.oregon-postgres.render.com/library_management_system_ip2w"
 
 # Create an SQLAlchemy engine using the database URL.
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
