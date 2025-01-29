@@ -2,7 +2,7 @@ from fastapi import FastAPI, Depends, HTTPException
 from . import models, schemas
 from .database import engine, get_db
 from .routers import search, issue_book, books_crud, users, login
-
+import uvicorn
 # Create all database tables defined in the models
 models.Base.metadata.create_all(bind=engine)
 
@@ -20,3 +20,6 @@ app.include_router(books_crud.router)
 def root():
     # Root endpoint that returns a welcome message
     return {"message": "Welcome to the library management system"}
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=8080)
