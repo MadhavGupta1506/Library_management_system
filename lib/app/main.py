@@ -1,12 +1,15 @@
-from fastapi import FastAPI
-from . import models
-from .database import engine
-from .routers import search,issue_book,books_crud,users,login
+from fastapi import FastAPI, Depends, HTTPException
+from . import models, schemas
+from .database import engine, get_db
+from .routers import search, issue_book, books_crud, users, login
 
+# Create all database tables defined in the models
 models.Base.metadata.create_all(bind=engine)
 
-app=FastAPI()
+# Initialize the FastAPI application
+app = FastAPI()
 
+# Include routers for different functionalities
 app.include_router(login.router)
 app.include_router(users.router)
 app.include_router(search.router)
@@ -15,4 +18,5 @@ app.include_router(books_crud.router)
 
 @app.get("/")
 def root():
+    # Root endpoint that returns a welcome message
     return {"message": "Welcome to the library management system"}
