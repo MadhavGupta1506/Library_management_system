@@ -1,13 +1,13 @@
 from fastapi import FastAPI,HTTPException,Depends,APIRouter,status
 from sqlalchemy.orm import Session
-from .. import schemas,models,database
+from .. import schemas,models,database,oauth2
 from sqlalchemy import and_
 
 
 router=APIRouter(prefix="/book",tags=["CRUD BOOK"])
 
 @router.post("/add", status_code=status.HTTP_201_CREATED, response_model=schemas.Book)
-def add_book(book:schemas.BaseBook,db:Session=Depends(database.get_db)):
+def add_book(book:schemas.BaseBook,db:Session=Depends(database.get_db),role:str=Depends(oauth2.require_role(["librarian"]))):
     
     available=db.query(models.Book).filter(and_(book.author==models.Book.author , book.title==models.Book.title)).first()
     
@@ -21,7 +21,7 @@ def add_book(book:schemas.BaseBook,db:Session=Depends(database.get_db)):
     return new_book
 
 @router.post("/delete/book_id/{id}",status_code=status.HTTP_204_NO_CONTENT)
-def delete_book(id:int,db:Session=Depends(database.get_db)):
+def delete_book(id:int,db:Session=Depends(database.get_db),role:str=Depends(oauth2.require_role(["librarian"]))):
     
     available=db.query(models.Book).filter(id==models.Book.book_id).first()
     
@@ -34,7 +34,7 @@ def delete_book(id:int,db:Session=Depends(database.get_db)):
 
 
 @router.put("/update", status_code=status.HTTP_201_CREATED, response_model=schemas.Book)
-def update_book(book:schemas.UpdateBook,db:Session=Depends(database.get_db)):
+def update_book(book:schemas.BookId,db:Session=Depends(database.get_db),role:str=Depends(oauth2.require_role(["librarian"]))):
     
     available=db.query(models.Book).filter(book.book_id==models.Book.book_id)
     print(available)

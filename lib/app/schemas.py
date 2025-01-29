@@ -3,11 +3,13 @@ from datetime import date
 from pydantic import EmailStr
 
 class BaseBook(BaseModel):
+    book_id:int
     title:str
     author:str
     category:str
 
-class UpdateBook(BaseBook):
+
+class BookId(BaseModel):
     book_id:int
 
 
@@ -20,14 +22,10 @@ class Book(BaseModel):
     class Config:
         from_attributes=True
 
-class UserDetails(BaseModel):
-    uid:int
-    book_id:int
-    user_name:str
-    mobile:int
-    email: EmailStr
+
     
-class IssueBook(UserDetails):
+class IssueBook(BaseModel):
+    
     issue_date:date=None
     return_date:date=None
     
@@ -37,6 +35,7 @@ class CreateUser(BaseModel):
     mobile:int
     email: EmailStr
     password:str
+    role:str="member"
     class Config:
         from_attributes=True
         
@@ -49,3 +48,11 @@ class UserOut(BaseModel):
 class LoginUser(BaseModel):
     email: EmailStr
     password:str
+    
+class Token(BaseModel):
+    token:str
+    token_type:str
+    
+    
+class TokenData(BaseModel):
+    id:str=None
