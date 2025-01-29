@@ -18,7 +18,7 @@ def get_user(id: int, db: Session = Depends(database.get_db), current_user: int 
     return user
 
 @router.post("/create_user", response_model=schemas.UserOut, status_code=status.HTTP_201_CREATED)
-def create_user(user: schemas.CreateUser, db: Session = Depends(database.get_db), role: str = Depends(oauth2.require_role(["admin"])), current_user: int = Depends(oauth2.get_current_user)):
+def create_user(user: schemas.CreateUser, db: Session = Depends(database.get_db)):
     # Validate mobile number and create a new user
     if len(str(user.mobile)) != 10:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid mobile number!")
