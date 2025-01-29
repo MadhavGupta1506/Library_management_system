@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 
 # SQLALCHEMY_DATABASE_URL defines the connection string for the PostgreSQL database.
 # Format: "postgresql://<username>:<password>@<ip-address/hostname>/<database_name>"
-SQLALCHEMY_DATABASE_URL = "postgresql://postgres:1234@localhost/fastapi"
+SQLALCHEMY_DATABASE_URL = "postgresql://postgres:eOakaMSonlyVXiXeyeijEgbEzyXiPJeZ@junction.proxy.rlwy.net:21822/railway"
 
 # Create an SQLAlchemy engine using the database URL.
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
