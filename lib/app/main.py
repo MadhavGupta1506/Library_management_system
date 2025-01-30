@@ -3,6 +3,7 @@ from . import models, schemas
 from .database import engine, get_db
 from .routers import search, issue_book, books_crud, users, login
 import uvicorn
+from .config import settings
 # Create all database tables defined in the models
 models.Base.metadata.create_all(bind=engine)
 
