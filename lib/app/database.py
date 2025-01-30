@@ -1,10 +1,11 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from .config import settings
 
 # SQLALCHEMY_DATABASE_URL defines the connection string for the PostgreSQL database.
 # Format: "postgresql://<username>:<password>@<ip-address/hostname>/<database_name>"
-SQLALCHEMY_DATABASE_URL = "postgresql://library_management_system_ip2w_user:CiyiaJdAtTgOJt2WNzf7giClCnhMzl0T@dpg-cud4rit2ng1s73bcrh60-a.oregon-postgres.render.com/library_management_system_ip2w"
+SQLALCHEMY_DATABASE_URL = f"postgresql://{settings.database_username}:{settings.database_password}@{settings.database_hostname}/{settings.database_name}"
 
 # Create an SQLAlchemy engine using the database URL.
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
